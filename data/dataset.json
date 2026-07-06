@@ -1,0 +1,42 @@
+[
+    {
+        "instruction": "Explain what a Large Language Model is.",
+        "response": "A Large Language Model is a neural network trained on massive amounts of text to understand and generate human language."
+    },
+    {
+        "instruction": "What is Prompt Engineering?",
+        "response": "Prompt Engineering is the practice of designing prompts that guide a language model to produce accurate and useful responses."
+    },
+    {
+        "instruction": "What is a Transformer?",
+        "response": "A Transformer is a deep learning architecture that uses self-attention to process sequences efficiently."
+    },
+    {
+        "instruction": "What is Self-Attention?",
+        "response": "Self-attention allows each token to attend to every other token in a sequence to capture contextual relationships."
+    },
+    {
+        "instruction": "What is Fine-tuning?",
+        "response": "Fine-tuning is the process of training a pretrained language model on a task-specific dataset."
+    },
+    {
+        "instruction": "What is Tokenization?",
+        "response": "Tokenization converts raw text into tokens that language models can process."
+    },
+    {
+        "instruction": "What is GPT-2?",
+        "response": "GPT-2 is an autoregressive transformer language model developed for text generation."
+    },
+    {
+        "instruction": "What is Temperature in text generation?",
+        "response": "Temperature controls the randomness of generated text. Lower values make outputs more deterministic while higher values increase creativity."
+    },
+    {
+        "instruction": "What is Top-k Sampling?",
+        "response": "Top-k sampling limits token selection to the k most probable next tokens."
+    },
+    {
+        "instruction": "What is Top-p Sampling?",
+        "response": "Top-p sampling selects the smallest set of tokens whose cumulative probability exceeds a threshold."
+    }
+]
