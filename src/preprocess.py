@@ -3,7 +3,7 @@ from datasets import Dataset
 from transformers import GPT2Tokenizer
 
 # Load JSON
-with open("data/dataset.json", "r", encoding="utf-8") as f:
+with open("data/dataset_v3.json", "r", encoding="utf-8") as f:
     records = json.load(f)
 
 texts = []

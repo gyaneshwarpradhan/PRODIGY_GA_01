@@ -1,0 +1,454 @@
+[
+  {
+    "instruction": "What are foundation models, and how have they changed AI engineering?",
+    "response": "Foundation models are large neural networks trained on massive and diverse datasets using self-supervised learning. They serve as general-purpose models that can be adapted to many downstream tasks such as text generation, question answering, summarization, translation, and coding. Foundation models have transformed AI engineering by shifting the focus from training task-specific models to adapting pretrained models through prompting, fine-tuning, retrieval augmentation, and agent-based workflows."
+  },
+  {
+    "instruction": "What is a Large Language Model (LLM), and how does it work?",
+    "response": "A Large Language Model (LLM) is a Transformer-based neural network trained to predict the next token in a sequence. During training, it learns statistical relationships between tokens from massive text corpora. During inference, it generates text autoregressively by repeatedly predicting the most probable next token based on the previous context."
+  },
+  {
+    "instruction": "What happens inside ChatGPT after you press Enter?",
+    "response": "After a user submits a prompt, the text is tokenized into numerical token IDs. These tokens are converted into embeddings and passed through multiple Transformer layers where self-attention computes contextual representations. The model predicts probability distributions over the vocabulary, selects the next token using decoding strategies such as greedy decoding, Top-k, or Top-p sampling, appends the generated token to the context, and repeats the process until the response is complete."
+  },
+  {
+    "instruction": "What is the Transformer architecture and how does it work?",
+    "response": "The Transformer is a deep learning architecture based on self-attention mechanisms instead of recurrence. It processes all input tokens simultaneously, captures long-range dependencies efficiently, and enables parallel computation. Modern LLMs such as GPT are built using decoder-only Transformer architectures."
+  },
+  {
+    "instruction": "What are the key components of the Transformer architecture?",
+    "response": "The main components include token embeddings, positional embeddings, multi-head self-attention, feed-forward neural networks, residual connections, layer normalization, and an output projection layer for predicting the next token."
+  },
+  {
+    "instruction": "What is tokenization in Large Language Models?",
+    "response": "Tokenization is the process of converting raw text into smaller units called tokens before feeding them into the model. Tokens may represent words, subwords, or characters depending on the tokenizer. Every token is mapped to a numerical ID that the model can process."
+  },
+  {
+    "instruction": "Explain Byte Pair Encoding (BPE).",
+    "response": "Byte Pair Encoding (BPE) is a subword tokenization algorithm that repeatedly merges the most frequent adjacent token pairs to build a vocabulary. It reduces vocabulary size while effectively handling rare and unseen words."
+  },
+  {
+    "instruction": "Explain WordPiece and SentencePiece tokenization.",
+    "response": "WordPiece selects subword units based on maximizing language modeling likelihood and is widely used in models such as BERT. SentencePiece treats text as a sequence of Unicode characters without requiring whitespace tokenization, making it effective for multilingual applications."
+  },
+  {
+    "instruction": "What is positional encoding, and why is it required?",
+    "response": "Transformers process tokens in parallel and therefore have no inherent understanding of token order. Positional encoding injects sequence order information into token embeddings so that the model can distinguish different token positions."
+  },
+  {
+    "instruction": "What are embeddings in Large Language Models?",
+    "response": "Embeddings are dense numerical vector representations of tokens that capture semantic and syntactic information. Similar words tend to have similar embedding vectors, enabling the model to learn meaningful relationships between concepts."
+  },
+  {
+    "instruction": "Explain Query (Q), Key (K), and Value (V) vectors in attention.",
+    "response": "Each input token is projected into three learned vectors: Query, Key, and Value. The Query represents what information the token is searching for, the Key represents the information available, and the Value contains the information passed to the output after attention weights are computed."
+  },
+  {
+    "instruction": "What is self-attention, and how does it work?",
+    "response": "Self-attention allows every token to attend to every other token in the sequence. Attention scores are computed by comparing Query vectors with Key vectors, normalized using softmax, and applied to Value vectors to produce context-aware token representations."
+  },
+  {
+    "instruction": "What is Cross Attention in Transformers?",
+    "response": "Cross Attention allows one sequence to attend to another sequence. It is primarily used in encoder-decoder Transformers, where the decoder attends to the encoder's output while generating text."
+  },
+  {
+    "instruction": "Why is the attention score divided by the square root of the key dimension?",
+    "response": "Dividing the attention score by the square root of the key dimension prevents extremely large dot-product values before applying softmax. This stabilizes gradients and improves optimization during training."
+  },
+  {
+    "instruction": "What is causal masking?",
+    "response": "Causal masking prevents a token from attending to future tokens during training and inference. It ensures that autoregressive language models such as GPT generate text using only previously generated context."
+  },
+  {
+    "instruction": "What are Multi-Head Attention mechanisms, and why are multiple attention heads used?",
+    "response": "Multi-Head Attention performs several independent attention operations in parallel, each learning different contextual relationships within the input sequence. The outputs of all attention heads are concatenated and projected into a single representation. Using multiple attention heads allows the model to capture different semantic, syntactic, and positional relationships simultaneously, improving the expressiveness of the Transformer."
+  },
+  {
+    "instruction": "What are Feed-Forward Networks (FFNs) in Large Language Models?",
+    "response": "Feed-Forward Networks are fully connected neural networks applied independently to every token after the attention layer. They introduce non-linearity and increase the model's representation capacity by transforming token embeddings into richer feature representations before passing them to the next Transformer layer."
+  },
+  {
+    "instruction": "What is the context window in Large Language Models, and why is it important?",
+    "response": "The context window is the maximum number of input and generated tokens that a language model can consider at one time. A larger context window allows the model to reason over longer documents, maintain longer conversations, and improve retrieval-based applications."
+  },
+  {
+    "instruction": "Why is the context window limited in Large Language Models?",
+    "response": "Traditional self-attention computes relationships between every pair of tokens, resulting in quadratic time and memory complexity. As sequence length increases, computation and memory requirements grow rapidly, limiting the practical context window size."
+  },
+  {
+    "instruction": "What is temperature in Large Language Models, and how does it affect text generation?",
+    "response": "Temperature controls the randomness of token selection during text generation. Lower temperatures produce more deterministic and focused outputs, while higher temperatures increase randomness and creativity by flattening the probability distribution over possible next tokens."
+  },
+  {
+    "instruction": "Why is the first generated token slower than the remaining tokens?",
+    "response": "The first token requires processing the entire input prompt through every Transformer layer to build the initial attention states. Once the KV cache is created, subsequent tokens reuse previously computed representations, making later token generation significantly faster."
+  },
+  {
+    "instruction": "Explain Top-k sampling and Top-p (Nucleus) sampling.",
+    "response": "Top-k sampling selects the next token only from the k most probable candidates, while Top-p sampling dynamically selects the smallest set of tokens whose cumulative probability exceeds a threshold p. Top-p adapts to different probability distributions and generally produces more natural text than a fixed Top-k strategy."
+  },
+  {
+    "instruction": "What are logits, and how are they used in text generation?",
+    "response": "Logits are the raw output scores produced by the model before applying the softmax function. During inference, logits are converted into probability distributions, which are then used by decoding algorithms such as greedy decoding, beam search, Top-k sampling, or Top-p sampling to select the next token."
+  },
+  {
+    "instruction": "What are residual (skip) connections in Transformers?",
+    "response": "Residual connections add the input of a Transformer sub-layer directly to its output before normalization. They improve gradient flow, reduce the vanishing gradient problem, stabilize optimization, and enable very deep Transformer architectures to train effectively."
+  },
+  {
+    "instruction": "What is the difference between open-source and closed-source Large Language Models?",
+    "response": "Open-source LLMs provide publicly accessible model weights that developers can inspect, modify, fine-tune, and deploy locally. Closed-source LLMs are accessible only through APIs or proprietary platforms, offering managed infrastructure and strong performance but limited transparency and customization."
+  },
+  {
+    "instruction": "What is the difference between encoder-only, decoder-only, and encoder-decoder Transformer architectures?",
+    "response": "Encoder-only models such as BERT are designed for language understanding tasks using bidirectional context. Decoder-only models such as GPT generate text autoregressively using masked self-attention. Encoder-decoder models such as T5 combine both components for sequence-to-sequence tasks including translation and summarization."
+  },
+  {
+    "instruction": "What is KV Cache, and how does it improve inference speed?",
+    "response": "KV Cache stores previously computed Key and Value tensors for earlier tokens during autoregressive generation. Instead of recomputing attention for the entire sequence at every decoding step, the model reuses cached values, significantly reducing latency during inference."
+  },
+  {
+    "instruction": "What is model distillation, and how is it used with Large Language Models?",
+    "response": "Model distillation transfers knowledge from a large teacher model to a smaller student model by training the student to mimic the teacher's predictions. This produces smaller models with lower computational requirements while preserving much of the original model's performance."
+  },
+  {
+    "instruction": "What is Mixture of Experts (MoE), and how does it work?",
+    "response": "Mixture of Experts is an architecture that contains multiple specialized feed-forward networks called experts. A gating network dynamically selects a small subset of experts for each input token, allowing the model to achieve high capacity while keeping computation relatively efficient."
+  },
+  {
+    "instruction": "What is the difference between dense and sparse models?",
+    "response": "Dense models activate every parameter during each forward pass, whereas sparse models such as Mixture of Experts activate only a subset of parameters for each input. Sparse models provide higher model capacity with lower computational cost compared to equally sized dense models."
+  },
+  {
+    "instruction": "What is prompt engineering, and why is it critical for AI applications?",
+    "response": "Prompt engineering is the process of designing, refining, and optimizing prompts to guide Large Language Models (LLMs) toward producing accurate, relevant, and reliable outputs. It is critical because the quality of the prompt directly influences the quality, consistency, and usefulness of the model's responses."
+  },
+  {
+    "instruction": "Explain zero-shot, one-shot, and few-shot prompting with examples.",
+    "response": "Zero-shot prompting asks the model to perform a task without providing examples. One-shot prompting provides a single example before asking the model to perform the task. Few-shot prompting provides multiple examples to help the model understand the expected pattern before generating its own response."
+  },
+  {
+    "instruction": "What is Chain-of-Thought (CoT) prompting, and when should you use it?",
+    "response": "Chain-of-Thought prompting encourages the model to generate intermediate reasoning steps before producing the final answer. It is most effective for tasks involving logical reasoning, mathematics, coding, and multi-step problem solving."
+  },
+  {
+    "instruction": "Explain self-consistency prompting and how it improves reasoning.",
+    "response": "Self-consistency prompting generates multiple reasoning paths using Chain-of-Thought prompting and selects the most consistent answer among them. This improves reasoning accuracy by reducing errors caused by a single incorrect reasoning path."
+  },
+  {
+    "instruction": "What is Tree-of-Thought prompting?",
+    "response": "Tree-of-Thought prompting extends Chain-of-Thought by allowing the model to explore multiple reasoning branches before selecting the best solution. It is particularly useful for planning, search, and complex decision-making tasks."
+  },
+  {
+    "instruction": "What is ReAct (Reasoning + Acting) prompting, and how does it work?",
+    "response": "ReAct combines reasoning and action by allowing the model to alternate between thinking steps and external actions such as calling APIs, using tools, or searching documents before producing the final answer. This enables LLM agents to solve more complex real-world tasks."
+  },
+  {
+    "instruction": "What is a system prompt, and how does it influence model behavior?",
+    "response": "A system prompt defines the overall behavior, personality, constraints, and objectives of the language model. It provides high-level instructions that guide the model throughout the conversation regardless of individual user prompts."
+  },
+  {
+    "instruction": "How do you structure prompts for consistent structured output such as JSON or XML?",
+    "response": "Structured prompts clearly specify the required output format, define schemas or field names, provide examples when necessary, and explicitly instruct the model to return only valid JSON or XML without additional explanations."
+  },
+  {
+    "instruction": "What is prompt injection, and how do you defend against it?",
+    "response": "Prompt injection is an attack where malicious user input attempts to override or manipulate the model's original instructions. Common defenses include strict input validation, separating trusted system instructions from user input, output validation, and limiting tool access."
+  },
+  {
+    "instruction": "What is jailbreaking in LLMs, and what are common jailbreak techniques?",
+    "response": "Jailbreaking attempts to bypass the model's safety mechanisms using carefully crafted prompts such as role-playing, instruction overriding, prompt leaking, or token manipulation. Modern AI systems defend against jailbreaks using safety alignment, instruction hierarchy, and content filtering."
+  },
+  {
+    "instruction": "How do you optimize prompts for cost and latency?",
+    "response": "Prompt optimization reduces unnecessary tokens, simplifies instructions, minimizes context length, retrieves only relevant information, and selects the smallest capable model to reduce inference cost and latency."
+  },
+  {
+    "instruction": "What is the difference between prompt engineering and prompt tuning?",
+    "response": "Prompt engineering manually designs natural language prompts without modifying model parameters, while prompt tuning learns continuous prompt embeddings through training while keeping the model weights frozen."
+  },
+  {
+    "instruction": "What is a prompt template, and how do you design one for production use?",
+    "response": "A prompt template is a reusable prompt containing placeholders for dynamic inputs. Production templates should be modular, version-controlled, parameterized, easy to maintain, and designed for consistent outputs."
+  },
+  {
+    "instruction": "How do you handle multi-turn conversations with LLMs?",
+    "response": "Multi-turn conversations are handled by maintaining conversation history, summarizing long contexts, managing memory efficiently, and ensuring that important information is preserved across interactions."
+  },
+  {
+    "instruction": "What is role prompting, and when is it effective?",
+    "response": "Role prompting instructs the model to behave as a specific expert, such as a software engineer, doctor, or teacher. It improves response quality by providing the model with a clear perspective and expected behavior."
+  },
+  {
+    "instruction": "What is prompt chaining, and how do you design a chain of prompts for complex tasks?",
+    "response": "Prompt chaining decomposes a complex task into multiple sequential prompts, where each prompt performs a specific subtask and passes its output to the next stage. This improves modularity, reliability, and debugging."
+  },
+  {
+    "instruction": "How do you evaluate and iterate on prompt quality?",
+    "response": "Prompt quality is evaluated using metrics such as accuracy, consistency, relevance, hallucination rate, latency, and cost. Iterative improvement involves testing multiple prompt variations, collecting feedback, and refining instructions."
+  },
+  {
+    "instruction": "What are meta-prompts, and how can they be used to generate prompts?",
+    "response": "Meta-prompts are prompts that instruct an LLM to generate, improve, or optimize other prompts. They are commonly used to automate prompt engineering and generate reusable prompt templates."
+  },
+  {
+    "instruction": "What are the common failure modes in prompting, and how do you debug them?",
+    "response": "Common failure modes include hallucinations, ambiguity, inconsistent formatting, prompt injection, instruction conflicts, and context overflow. Debugging involves simplifying prompts, improving instructions, adding examples, and validating outputs."
+  },
+  {
+    "instruction": "How do you handle edge cases and adversarial inputs in prompt design?",
+    "response": "Edge cases are handled by validating user input, defining explicit constraints, sanitizing prompts, implementing safety filters, testing adversarial examples, and applying robust output validation."
+  },
+  {
+    "instruction": "What is the 'lost in the middle' problem in long-context prompting?",
+    "response": "The 'lost in the middle' problem occurs when language models pay less attention to information located in the middle of very long contexts. This can be mitigated through context reordering, retrieval augmentation, chunking, and summarization."
+  },
+  {
+    "instruction": "What are output parsers, and why are they needed for production applications?",
+    "response": "Output parsers convert raw LLM responses into structured formats such as JSON or Python objects while validating correctness. They improve reliability, automation, and integration with downstream applications."
+  },
+  {
+    "instruction": "How do you handle multilingual prompting effectively?",
+    "response": "Multilingual prompting uses language-specific instructions, localized examples, consistent formatting, and language-aware evaluation to ensure high-quality responses across multiple languages."
+  },
+  {
+    "instruction": "Your few-shot prompting gives inconsistent results across similar inputs. How do you stabilize it?",
+    "response": "Stabilize few-shot prompting by using high-quality representative examples, maintaining consistent formatting, reducing ambiguity, controlling randomness through temperature settings, and evaluating prompts across diverse test cases."
+  },
+  {
+    "instruction": "Your LLM classification system is too sensitive to prompt wording changes. How do you reduce prompt sensitivity?",
+    "response": "Reduce prompt sensitivity by simplifying instructions, using standardized prompt templates, adding representative few-shot examples, testing prompt robustness, and evaluating performance across multiple prompt variations."
+  },
+  {
+    "instruction": "Your chatbot's system prompt containing proprietary business logic is being leaked by users. How do you prevent it?",
+    "response": "Prevent system prompt leakage by separating system instructions from user-visible context, restricting model access to hidden prompts, filtering outputs, applying prompt isolation techniques, and validating responses before returning them."
+  },
+  {
+    "instruction": "Your LLM agent is vulnerable to prompt injection that reveals the system prompt. How do you defend it?",
+    "response": "Defend against prompt injection using strict instruction hierarchy, input sanitization, retrieval isolation, permission-based tool access, output filtering, and continuous security testing against adversarial prompts."
+  },
+  {
+    "instruction": "Your Chain-of-Thought prompting is not improving reasoning accuracy. What should you fix?",
+    "response": "Improve reasoning by providing better examples, using self-consistency prompting, decomposing complex problems into smaller tasks, verifying intermediate reasoning steps, and selecting more capable reasoning models when necessary."
+  },
+  {
+    "instruction": "Your AI system works well in English but performs poorly in other languages. How do you add multilingual support?",
+    "response": "Improve multilingual support by using multilingual language models, translating evaluation datasets, localizing prompts, adding multilingual few-shot examples, and testing performance across different languages."
+  },
+  {
+    "instruction": "Your zero-shot cross-lingual transfer from English fails on other languages. How do you fix it?",
+    "response": "Improve cross-lingual transfer by using multilingual foundation models, adding translated demonstrations, applying language-specific prompt templates, fine-tuning on multilingual datasets, and evaluating across multiple target languages."
+  },
+  {
+    "instruction": "What is Retrieval-Augmented Generation (RAG), and why is it important?",
+    "response": "Retrieval-Augmented Generation (RAG) is an AI architecture that combines information retrieval with Large Language Models. Instead of relying only on the model's pretrained knowledge, RAG retrieves relevant documents from an external knowledge base and provides them as context before generation. This improves factual accuracy, reduces hallucinations, enables access to up-to-date information, and allows LLMs to answer domain-specific questions without retraining."
+  },
+  {
+    "instruction": "Explain the architecture of a basic RAG system.",
+    "response": "A basic RAG system consists of document ingestion, document chunking, embedding generation, vector database storage, query embedding, similarity search, context retrieval, prompt construction, and LLM response generation. Retrieved documents are injected into the prompt so the language model can generate grounded and context-aware answers."
+  },
+  {
+    "instruction": "What are the key components of a RAG pipeline?",
+    "response": "A RAG pipeline typically consists of document loaders, text chunking, embedding models, a vector database, retrievers, optional rerankers, prompt templates, and a Large Language Model for answer generation."
+  },
+  {
+    "instruction": "What are chunking strategies, and how do you choose the right chunk size?",
+    "response": "Chunking divides large documents into smaller sections before indexing. The ideal chunk size depends on document structure, embedding model, retrieval quality, and context window. Small chunks improve retrieval precision, while larger chunks preserve context but may reduce retrieval accuracy."
+  },
+  {
+    "instruction": "Compare fixed-size chunking, semantic chunking, and recursive chunking.",
+    "response": "Fixed-size chunking splits documents by a fixed number of characters or tokens. Semantic chunking groups text based on meaning and topic boundaries. Recursive chunking preserves document hierarchy by recursively splitting sections while maintaining contextual relationships. Semantic and recursive chunking generally produce higher retrieval quality than fixed-size chunking."
+  },
+  {
+    "instruction": "What are embedding models, and how do they convert text into vectors?",
+    "response": "Embedding models transform text into dense numerical vectors that capture semantic meaning. Similar pieces of text produce similar vectors, allowing efficient similarity search in vector databases using distance metrics such as cosine similarity or Euclidean distance."
+  },
+  {
+    "instruction": "How do you choose an embedding model for a RAG system?",
+    "response": "Choosing an embedding model depends on retrieval accuracy, supported languages, latency, vector dimension, licensing, domain specialization, and computational cost. The embedding model should align with the domain and retrieval requirements of the application."
+  },
+  {
+    "instruction": "What is Agentic RAG?",
+    "response": "Agentic RAG extends traditional RAG by allowing an AI agent to reason about retrieval, decide when to search for information, use multiple tools, refine queries, and perform iterative retrieval before generating the final answer."
+  },
+  {
+    "instruction": "What is hybrid search, and why is it better than pure vector search?",
+    "response": "Hybrid search combines semantic vector search with traditional keyword-based retrieval such as BM25. This improves retrieval performance by capturing both semantic similarity and exact keyword matches, making it more robust for real-world enterprise search applications."
+  },
+  {
+    "instruction": "What is re-ranking, and how does it improve retrieval quality?",
+    "response": "A reranker evaluates the documents retrieved by the initial retriever and assigns more accurate relevance scores using a cross-encoder or similar model. This improves retrieval precision by selecting the most relevant documents before passing them to the language model."
+  },
+  {
+    "instruction": "How do you handle multi-document and multi-hop questions in RAG?",
+    "response": "Multi-document and multi-hop reasoning require retrieving information from multiple documents, combining evidence, and reasoning across them before generating an answer. Query decomposition, iterative retrieval, reranking, and agent-based planning improve performance on such questions."
+  },
+  {
+    "instruction": "What is the 'lost in the middle' problem in RAG systems?",
+    "response": "The 'lost in the middle' problem occurs when relevant information placed in the middle of a long context receives less attention from the language model. It can be mitigated through reranking, context compression, intelligent document ordering, and limiting unnecessary context."
+  },
+  {
+    "instruction": "How do you evaluate a RAG system?",
+    "response": "RAG systems are commonly evaluated using retrieval metrics such as Recall@K and Precision@K, along with generation metrics including faithfulness, answer relevance, context precision, context recall, groundedness, latency, and hallucination rate."
+  },
+  {
+    "instruction": "What is Self-RAG, and how does the model decide when to retrieve?",
+    "response": "Self-RAG enables the language model to decide whether retrieval is necessary before answering a question. The model first evaluates its confidence and retrieves external knowledge only when additional information is required, reducing unnecessary retrieval while maintaining answer quality."
+  },
+  {
+    "instruction": "What is GraphRAG, and when would you use it instead of traditional RAG?",
+    "response": "GraphRAG augments retrieval with knowledge graphs that explicitly represent entities and relationships. It is particularly useful for multi-hop reasoning, complex enterprise knowledge bases, and applications where understanding relationships between entities is more important than retrieving isolated text chunks."
+  },
+  {
+    "instruction": "What is the Transformer architecture?",
+    "response": "The Transformer is a deep learning architecture that replaces recurrence and convolution with self-attention mechanisms. It processes all input tokens simultaneously, enabling parallel computation, efficient learning of long-range dependencies, and faster training than RNNs."
+  },
+  {
+    "instruction": "How is a Transformer different from an RNN?",
+    "response": "Unlike RNNs, which process tokens sequentially using recurrence, Transformers process all tokens in parallel using self-attention. This makes Transformers faster to train and better at capturing long-range dependencies."
+  },
+  {
+    "instruction": "Why is the Transformer more efficient than CNNs and RNNs?",
+    "response": "Transformers remove sequential computation by using self-attention, allowing parallel processing of all tokens. This significantly improves training speed and scalability for large datasets."
+  },
+  {
+    "instruction": "Why does the Transformer use positional encoding?",
+    "response": "Since Transformers process all tokens in parallel and have no inherent notion of sequence order, positional encoding injects information about the position of each token so the model can understand word order."
+  },
+  {
+    "instruction": "What is self-attention?",
+    "response": "Self-attention enables every token in a sequence to attend to every other token, allowing the model to capture contextual relationships regardless of the distance between tokens."
+  },
+  {
+    "instruction": "Why does the Transformer use Multi-Head Attention?",
+    "response": "Multi-Head Attention allows the model to learn different contextual relationships simultaneously by running multiple attention mechanisms in parallel and combining their outputs."
+  },
+  {
+    "instruction": "What are Query, Key, and Value vectors?",
+    "response": "Query vectors represent what information a token is searching for, Key vectors represent the information available in each token, and Value vectors contain the information that is passed to the output after attention scores are computed."
+  },
+  {
+    "instruction": "Why are separate weight matrices used for Query, Key, and Value?",
+    "response": "Separate learned weight matrices allow Queries, Keys, and Values to capture different semantic representations of the same input token, making the attention mechanism more expressive."
+  },
+  {
+    "instruction": "Why are attention scores divided by the square root of dk?",
+    "response": "Scaling attention scores by the square root of the key dimension prevents extremely large values before softmax, improving numerical stability and gradient flow during training."
+  },
+  {
+    "instruction": "What is Scaled Dot-Product Attention?",
+    "response": "Scaled Dot-Product Attention computes attention scores using the dot product of Queries and Keys, scales them by the square root of the key dimension, applies softmax, and uses the resulting weights to combine Value vectors."
+  },
+  {
+    "instruction": "What is the purpose of residual connections in a Transformer?",
+    "response": "Residual connections allow gradients to flow through deep networks more effectively, reduce the vanishing gradient problem, preserve information from earlier layers, and improve training stability."
+  },
+  {
+    "instruction": "What is Layer Normalization?",
+    "response": "Layer Normalization normalizes activations across features within each sample, stabilizing training and making Transformers independent of batch size."
+  },
+  {
+    "instruction": "Why do Transformers use LayerNorm instead of BatchNorm?",
+    "response": "LayerNorm is independent of batch size and works effectively with variable-length sequences, making it more suitable than BatchNorm for natural language processing tasks."
+  },
+  {
+    "instruction": "What are the main components of a Transformer Encoder?",
+    "response": "A Transformer Encoder consists of Multi-Head Self-Attention, a Feed-Forward Neural Network, Residual Connections, Layer Normalization, and Positional Encoding."
+  },
+  {
+    "instruction": "What are the main components of a Transformer Decoder?",
+    "response": "A Transformer Decoder contains Masked Multi-Head Self-Attention, Cross-Attention with the Encoder output, a Feed-Forward Network, Residual Connections, and Layer Normalization."
+  },
+  {
+    "instruction": "Why does GPT use only the Transformer Decoder?",
+    "response": "GPT performs autoregressive next-token prediction, so it only requires the decoder architecture with masked self-attention."
+  },
+  {
+    "instruction": "Why does BERT use only the Transformer Encoder?",
+    "response": "BERT focuses on bidirectional language understanding rather than text generation, making the encoder architecture the appropriate choice."
+  },
+  {
+    "instruction": "What is masked self-attention?",
+    "response": "Masked self-attention prevents tokens from attending to future positions, ensuring that predictions depend only on previously generated tokens during autoregressive generation."
+  },
+  {
+    "instruction": "What is causal language modeling?",
+    "response": "Causal language modeling trains a model to predict the next token using only previous tokens, which is the objective used by GPT models."
+  },
+  {
+    "instruction": "What is the size of the attention matrix?",
+    "response": "For an input sequence containing n tokens, the attention matrix has dimensions n × n, where each element represents the attention score between two tokens."
+  },
+  {
+    "instruction": "Does every token have its own Query, Key, and Value vectors?",
+    "response": "Yes. Every input token is projected through learned weight matrices to generate its own Query, Key, and Value vectors before the attention computation."
+  },
+  {
+    "instruction": "What is the difference between Pre-Norm and Post-Norm Transformers?",
+    "response": "Pre-Norm applies Layer Normalization before each sub-layer, improving gradient flow in deep models, while Post-Norm applies Layer Normalization after the residual connection."
+  },
+  {
+    "instruction": "How do Transformers achieve parallelization?",
+    "response": "Transformers achieve parallelization by processing all tokens simultaneously through self-attention, applying feed-forward networks independently to each token, and executing multiple attention heads in parallel."
+  },
+  {
+    "instruction": "Why does the Transformer use Multi-Head Attention?",
+    "response": "The Transformer uses Multi-Head Attention to capture different types of relationships and patterns in the input data. By applying multiple attention mechanisms in parallel, each with its own learned weight matrices, the model can focus on various parts of the input sequence simultaneously. This allows it to gather diverse contextual information and enhances its ability to represent complex dependencies in the data. Multi-Head Attention improves the model's expressiveness by combining multiple perspectives before passing the output to subsequent layers. The Query weight matrix projects the input into the query vector space, the Key weight matrix projects the input into the key vector space, and the Value weight matrix projects the input into the value vector space."
+  },
+  {
+    "instruction": "Why does the Transformer scale the attention score before applying softmax?",
+    "response": "The Transformer scales the attention scores before applying softmax to stabilize gradients and improve training performance. Specifically, the attention scores are divided by the square root of the key dimension (sqrt(dk)). Without scaling, the dot products between Query and Key vectors can become very large, causing the softmax function to produce extremely small gradients, which slows convergence and makes optimization difficult. The scaled dot-product attention formula is: Attention(Q, K, V) = softmax(QK^T / sqrt(dk))V."
+  },
+  {
+    "instruction": "Why does the Transformer use different weight matrices for Query, Key, and Value?",
+    "response": "The Transformer uses separate weight matrices to generate Query (Q), Key (K), and Value (V) vectors because each serves a different purpose within the attention mechanism. The Query determines what information the model is searching for, the Key represents the content available in each token, and the Value contains the information that will be aggregated and passed forward. Using different learned projections allows the model to capture different semantic representations and relationships, improving its ability to model complex dependencies."
+  },
+  {
+    "instruction": "What are residual connections in the Transformer, and why are they important?",
+    "response": "Residual connections add the input of a sub-layer directly to its output before passing it to the next stage. Their primary purpose is to improve gradient flow during backpropagation, reducing the vanishing gradient problem and enabling the training of deeper Transformer models. Residual connections also preserve information from earlier layers, allowing the model to combine both low-level and high-level representations, which improves convergence, stability, and overall model performance."
+  },
+  {
+    "instruction": "What is the difference between Layer Normalization (LayerNorm) and Batch Normalization (BatchNorm)?",
+    "response": "Layer Normalization (LayerNorm) normalizes activations across the features of a single input sample, making it independent of the batch size. It is widely used in Transformer models because it works well with variable-length sequences and maintains sequence information. Batch Normalization (BatchNorm) normalizes activations across a batch of samples using batch statistics. It is highly effective in CNNs and feed-forward networks but is less suitable for sequence models where batch sizes and sequence lengths may vary."
+  },
+  {
+    "instruction": "Why do Transformer blocks use LayerNorm instead of BatchNorm?",
+    "response": "Transformers use Layer Normalization because it operates independently of batch statistics and normalizes features within each individual sample. This makes it robust for variable-length sequences and small batch sizes, both of which are common in natural language processing. Batch Normalization depends on batch-level statistics, making it less stable and less suitable for sequence modeling tasks."
+  },
+  {
+    "instruction": "How do Transformers achieve parallelization?",
+    "response": "Transformers achieve parallelization through several mechanisms. First, the self-attention mechanism computes attention scores for all tokens simultaneously instead of sequentially as in RNNs. Second, positional encoding injects sequence-order information without requiring sequential computation. Third, multiple attention heads in Multi-Head Attention operate independently in parallel. Finally, feed-forward neural networks are applied independently to every token, enabling efficient GPU utilization and significantly faster training."
+  },
+  {
+    "instruction": "What are the differences between the Transformer Encoder and Decoder?",
+    "response": "The Transformer Encoder converts an input sequence into contextual representations using Multi-Head Self-Attention, Feed-Forward Networks, Residual Connections, and Layer Normalization. The Decoder generates the output sequence autoregressively. In addition to Masked Multi-Head Self-Attention and Feed-Forward Networks, the Decoder contains Cross-Attention, which attends to the Encoder's output. The Encoder can attend to all input tokens, whereas the Decoder uses masked self-attention to prevent access to future tokens during generation."
+  },
+  {
+    "instruction": "What is the size of the attention matrix in a Transformer?",
+    "response": "For an input sequence containing n tokens, the attention matrix has dimensions n × n. Each element represents the attention score between a pair of tokens in the sequence. These scores are computed using the dot product of the Query and Key vectors, scaled by the square root of the key dimension, and normalized using the softmax function to produce attention weights."
+  },
+  {
+    "instruction": "What are Query (Q), Key (K), and Value (V) vectors in a Transformer?",
+    "response": "Each input token is transformed into three vectors: Query (Q), Key (K), and Value (V). The Query vector represents what information the token is looking for, the Key vector represents the information available in each token, and the Value vector contains the information that will be aggregated after the attention weights are computed. These vectors are generated using three independent learned linear projection matrices."
+  },
+  {
+    "instruction": "Does every token have its own Query, Key, and Value vectors?",
+    "response": "Yes. Every token in the input sequence is projected independently through the learned Query, Key, and Value weight matrices to generate its own Q, K, and V vectors. During the attention computation, the Query vector of one token is compared with the Key vectors of all tokens to determine attention weights, which are then applied to the corresponding Value vectors."
+  },
+  {
+    "instruction": "What are the dimensions of Query, Key, and Value vectors?",
+    "response": "Assume the input embedding has dimensions (n_tokens, d_model). The learned projection matrices WQ, WK, and WV have dimensions d_model × d_k, d_model × d_k, and d_model × d_v respectively. After projection, the Query and Key matrices have dimensions (n_tokens, d_k), while the Value matrix has dimensions (n_tokens, d_v). In Multi-Head Attention, the embedding dimension is divided across multiple heads so that each head operates on smaller Query, Key, and Value vectors."
+  },
+  {
+    "instruction": "What is the difference between Pre-Norm and Post-Norm Transformers?",
+    "response": "In the Post-Norm architecture, the input first passes through a sub-layer such as Multi-Head Attention or a Feed-Forward Network, then a residual connection is added, and finally Layer Normalization is applied. In the Pre-Norm architecture, Layer Normalization is applied before the sub-layer, followed by the residual connection. Modern large language models typically prefer Pre-Norm because it improves gradient flow and enables more stable training for very deep Transformer networks."
+  },
+  {
+    "instruction": "Why do Transformers use LayerNorm instead of BatchNorm?",
+    "response": "Layer Normalization operates independently for each token by normalizing across its feature dimensions, making it independent of batch size and sequence length. This property makes LayerNorm well suited for NLP tasks involving variable-length sequences. Batch Normalization depends on statistics computed across an entire mini-batch, making it less stable for sequence models and autoregressive language generation."
+  },
+  {
+    "instruction": "How does Transformer training differ from inference?",
+    "response": "During training, Transformers process all input tokens simultaneously, allowing parallel computation of attention and efficient optimization. During inference, autoregressive models such as GPT generate one token at a time, where each newly generated token becomes part of the input for predicting the next token. This sequential generation makes inference slower than training."
+  }
+]

@@ -1,0 +1,61 @@
+[{
+    "instruction": "What is Retrieval-Augmented Generation (RAG), and why is it important?",
+    "response": "Retrieval-Augmented Generation (RAG) is an AI architecture that combines information retrieval with Large Language Models. Instead of relying only on the model's pretrained knowledge, RAG retrieves relevant documents from an external knowledge base and provides them as context before generation. This improves factual accuracy, reduces hallucinations, enables access to up-to-date information, and allows LLMs to answer domain-specific questions without retraining."
+  },
+  {
+    "instruction": "Explain the architecture of a basic RAG system.",
+    "response": "A basic RAG system consists of document ingestion, document chunking, embedding generation, vector database storage, query embedding, similarity search, context retrieval, prompt construction, and LLM response generation. Retrieved documents are injected into the prompt so the language model can generate grounded and context-aware answers."
+  },
+  {
+    "instruction": "What are the key components of a RAG pipeline?",
+    "response": "A RAG pipeline typically consists of document loaders, text chunking, embedding models, a vector database, retrievers, optional rerankers, prompt templates, and a Large Language Model for answer generation."
+  },
+  {
+    "instruction": "What are chunking strategies, and how do you choose the right chunk size?",
+    "response": "Chunking divides large documents into smaller sections before indexing. The ideal chunk size depends on document structure, embedding model, retrieval quality, and context window. Small chunks improve retrieval precision, while larger chunks preserve context but may reduce retrieval accuracy."
+  },
+  {
+    "instruction": "Compare fixed-size chunking, semantic chunking, and recursive chunking.",
+    "response": "Fixed-size chunking splits documents by a fixed number of characters or tokens. Semantic chunking groups text based on meaning and topic boundaries. Recursive chunking preserves document hierarchy by recursively splitting sections while maintaining contextual relationships. Semantic and recursive chunking generally produce higher retrieval quality than fixed-size chunking."
+  },
+  {
+    "instruction": "What are embedding models, and how do they convert text into vectors?",
+    "response": "Embedding models transform text into dense numerical vectors that capture semantic meaning. Similar pieces of text produce similar vectors, allowing efficient similarity search in vector databases using distance metrics such as cosine similarity or Euclidean distance."
+  },
+  {
+    "instruction": "How do you choose an embedding model for a RAG system?",
+    "response": "Choosing an embedding model depends on retrieval accuracy, supported languages, latency, vector dimension, licensing, domain specialization, and computational cost. The embedding model should align with the domain and retrieval requirements of the application."
+  },
+  {
+    "instruction": "What is Agentic RAG?",
+    "response": "Agentic RAG extends traditional RAG by allowing an AI agent to reason about retrieval, decide when to search for information, use multiple tools, refine queries, and perform iterative retrieval before generating the final answer."
+  },
+  {
+    "instruction": "What is hybrid search, and why is it better than pure vector search?",
+    "response": "Hybrid search combines semantic vector search with traditional keyword-based retrieval such as BM25. This improves retrieval performance by capturing both semantic similarity and exact keyword matches, making it more robust for real-world enterprise search applications."
+  },
+  {
+    "instruction": "What is re-ranking, and how does it improve retrieval quality?",
+    "response": "A reranker evaluates the documents retrieved by the initial retriever and assigns more accurate relevance scores using a cross-encoder or similar model. This improves retrieval precision by selecting the most relevant documents before passing them to the language model."
+  },
+  {
+    "instruction": "How do you handle multi-document and multi-hop questions in RAG?",
+    "response": "Multi-document and multi-hop reasoning require retrieving information from multiple documents, combining evidence, and reasoning across them before generating an answer. Query decomposition, iterative retrieval, reranking, and agent-based planning improve performance on such questions."
+  },
+  {
+    "instruction": "What is the 'lost in the middle' problem in RAG systems?",
+    "response": "The 'lost in the middle' problem occurs when relevant information placed in the middle of a long context receives less attention from the language model. It can be mitigated through reranking, context compression, intelligent document ordering, and limiting unnecessary context."
+  },
+  {
+    "instruction": "How do you evaluate a RAG system?",
+    "response": "RAG systems are commonly evaluated using retrieval metrics such as Recall@K and Precision@K, along with generation metrics including faithfulness, answer relevance, context precision, context recall, groundedness, latency, and hallucination rate."
+  },
+  {
+    "instruction": "What is Self-RAG, and how does the model decide when to retrieve?",
+    "response": "Self-RAG enables the language model to decide whether retrieval is necessary before answering a question. The model first evaluates its confidence and retrieves external knowledge only when additional information is required, reducing unnecessary retrieval while maintaining answer quality."
+  },
+  {
+    "instruction": "What is GraphRAG, and when would you use it instead of traditional RAG?",
+    "response": "GraphRAG augments retrieval with knowledge graphs that explicitly represent entities and relationships. It is particularly useful for multi-hop reasoning, complex enterprise knowledge bases, and applications where understanding relationships between entities is more important than retrieving isolated text chunks."
+  }
+]

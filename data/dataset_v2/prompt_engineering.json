@@ -1,0 +1,121 @@
+[{
+    "instruction": "What is prompt engineering, and why is it critical for AI applications?",
+    "response": "Prompt engineering is the process of designing, refining, and optimizing prompts to guide Large Language Models (LLMs) toward producing accurate, relevant, and reliable outputs. It is critical because the quality of the prompt directly influences the quality, consistency, and usefulness of the model's responses."
+  },
+  {
+    "instruction": "Explain zero-shot, one-shot, and few-shot prompting with examples.",
+    "response": "Zero-shot prompting asks the model to perform a task without providing examples. One-shot prompting provides a single example before asking the model to perform the task. Few-shot prompting provides multiple examples to help the model understand the expected pattern before generating its own response."
+  },
+  {
+    "instruction": "What is Chain-of-Thought (CoT) prompting, and when should you use it?",
+    "response": "Chain-of-Thought prompting encourages the model to generate intermediate reasoning steps before producing the final answer. It is most effective for tasks involving logical reasoning, mathematics, coding, and multi-step problem solving."
+  },
+  {
+    "instruction": "Explain self-consistency prompting and how it improves reasoning.",
+    "response": "Self-consistency prompting generates multiple reasoning paths using Chain-of-Thought prompting and selects the most consistent answer among them. This improves reasoning accuracy by reducing errors caused by a single incorrect reasoning path."
+  },
+  {
+    "instruction": "What is Tree-of-Thought prompting?",
+    "response": "Tree-of-Thought prompting extends Chain-of-Thought by allowing the model to explore multiple reasoning branches before selecting the best solution. It is particularly useful for planning, search, and complex decision-making tasks."
+  },
+  {
+    "instruction": "What is ReAct (Reasoning + Acting) prompting, and how does it work?",
+    "response": "ReAct combines reasoning and action by allowing the model to alternate between thinking steps and external actions such as calling APIs, using tools, or searching documents before producing the final answer. This enables LLM agents to solve more complex real-world tasks."
+  },
+  {
+    "instruction": "What is a system prompt, and how does it influence model behavior?",
+    "response": "A system prompt defines the overall behavior, personality, constraints, and objectives of the language model. It provides high-level instructions that guide the model throughout the conversation regardless of individual user prompts."
+  },
+  {
+    "instruction": "How do you structure prompts for consistent structured output such as JSON or XML?",
+    "response": "Structured prompts clearly specify the required output format, define schemas or field names, provide examples when necessary, and explicitly instruct the model to return only valid JSON or XML without additional explanations."
+  },
+  {
+    "instruction": "What is prompt injection, and how do you defend against it?",
+    "response": "Prompt injection is an attack where malicious user input attempts to override or manipulate the model's original instructions. Common defenses include strict input validation, separating trusted system instructions from user input, output validation, and limiting tool access."
+  },
+  {
+    "instruction": "What is jailbreaking in LLMs, and what are common jailbreak techniques?",
+    "response": "Jailbreaking attempts to bypass the model's safety mechanisms using carefully crafted prompts such as role-playing, instruction overriding, prompt leaking, or token manipulation. Modern AI systems defend against jailbreaks using safety alignment, instruction hierarchy, and content filtering."
+  },
+  {
+    "instruction": "How do you optimize prompts for cost and latency?",
+    "response": "Prompt optimization reduces unnecessary tokens, simplifies instructions, minimizes context length, retrieves only relevant information, and selects the smallest capable model to reduce inference cost and latency."
+  },
+  {
+    "instruction": "What is the difference between prompt engineering and prompt tuning?",
+    "response": "Prompt engineering manually designs natural language prompts without modifying model parameters, while prompt tuning learns continuous prompt embeddings through training while keeping the model weights frozen."
+  },
+  {
+    "instruction": "What is a prompt template, and how do you design one for production use?",
+    "response": "A prompt template is a reusable prompt containing placeholders for dynamic inputs. Production templates should be modular, version-controlled, parameterized, easy to maintain, and designed for consistent outputs."
+  },
+  {
+    "instruction": "How do you handle multi-turn conversations with LLMs?",
+    "response": "Multi-turn conversations are handled by maintaining conversation history, summarizing long contexts, managing memory efficiently, and ensuring that important information is preserved across interactions."
+  },
+  {
+    "instruction": "What is role prompting, and when is it effective?",
+    "response": "Role prompting instructs the model to behave as a specific expert, such as a software engineer, doctor, or teacher. It improves response quality by providing the model with a clear perspective and expected behavior."
+  },
+  {
+    "instruction": "What is prompt chaining, and how do you design a chain of prompts for complex tasks?",
+    "response": "Prompt chaining decomposes a complex task into multiple sequential prompts, where each prompt performs a specific subtask and passes its output to the next stage. This improves modularity, reliability, and debugging."
+  },
+  {
+    "instruction": "How do you evaluate and iterate on prompt quality?",
+    "response": "Prompt quality is evaluated using metrics such as accuracy, consistency, relevance, hallucination rate, latency, and cost. Iterative improvement involves testing multiple prompt variations, collecting feedback, and refining instructions."
+  },
+  {
+    "instruction": "What are meta-prompts, and how can they be used to generate prompts?",
+    "response": "Meta-prompts are prompts that instruct an LLM to generate, improve, or optimize other prompts. They are commonly used to automate prompt engineering and generate reusable prompt templates."
+  },
+  {
+    "instruction": "What are the common failure modes in prompting, and how do you debug them?",
+    "response": "Common failure modes include hallucinations, ambiguity, inconsistent formatting, prompt injection, instruction conflicts, and context overflow. Debugging involves simplifying prompts, improving instructions, adding examples, and validating outputs."
+  },
+  {
+    "instruction": "How do you handle edge cases and adversarial inputs in prompt design?",
+    "response": "Edge cases are handled by validating user input, defining explicit constraints, sanitizing prompts, implementing safety filters, testing adversarial examples, and applying robust output validation."
+  },
+  {
+    "instruction": "What is the 'lost in the middle' problem in long-context prompting?",
+    "response": "The 'lost in the middle' problem occurs when language models pay less attention to information located in the middle of very long contexts. This can be mitigated through context reordering, retrieval augmentation, chunking, and summarization."
+  },
+  {
+    "instruction": "What are output parsers, and why are they needed for production applications?",
+    "response": "Output parsers convert raw LLM responses into structured formats such as JSON or Python objects while validating correctness. They improve reliability, automation, and integration with downstream applications."
+  },
+  {
+    "instruction": "How do you handle multilingual prompting effectively?",
+    "response": "Multilingual prompting uses language-specific instructions, localized examples, consistent formatting, and language-aware evaluation to ensure high-quality responses across multiple languages."
+  },
+  {
+    "instruction": "Your few-shot prompting gives inconsistent results across similar inputs. How do you stabilize it?",
+    "response": "Stabilize few-shot prompting by using high-quality representative examples, maintaining consistent formatting, reducing ambiguity, controlling randomness through temperature settings, and evaluating prompts across diverse test cases."
+  },
+  {
+    "instruction": "Your LLM classification system is too sensitive to prompt wording changes. How do you reduce prompt sensitivity?",
+    "response": "Reduce prompt sensitivity by simplifying instructions, using standardized prompt templates, adding representative few-shot examples, testing prompt robustness, and evaluating performance across multiple prompt variations."
+  },
+  {
+    "instruction": "Your chatbot's system prompt containing proprietary business logic is being leaked by users. How do you prevent it?",
+    "response": "Prevent system prompt leakage by separating system instructions from user-visible context, restricting model access to hidden prompts, filtering outputs, applying prompt isolation techniques, and validating responses before returning them."
+  },
+  {
+    "instruction": "Your LLM agent is vulnerable to prompt injection that reveals the system prompt. How do you defend it?",
+    "response": "Defend against prompt injection using strict instruction hierarchy, input sanitization, retrieval isolation, permission-based tool access, output filtering, and continuous security testing against adversarial prompts."
+  },
+  {
+    "instruction": "Your Chain-of-Thought prompting is not improving reasoning accuracy. What should you fix?",
+    "response": "Improve reasoning by providing better examples, using self-consistency prompting, decomposing complex problems into smaller tasks, verifying intermediate reasoning steps, and selecting more capable reasoning models when necessary."
+  },
+  {
+    "instruction": "Your AI system works well in English but performs poorly in other languages. How do you add multilingual support?",
+    "response": "Improve multilingual support by using multilingual language models, translating evaluation datasets, localizing prompts, adding multilingual few-shot examples, and testing performance across different languages."
+  },
+  {
+    "instruction": "Your zero-shot cross-lingual transfer from English fails on other languages. How do you fix it?",
+    "response": "Improve cross-lingual transfer by using multilingual foundation models, adding translated demonstrations, applying language-specific prompt templates, fine-tuning on multilingual datasets, and evaluating across multiple target languages."
+  }
+]

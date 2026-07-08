@@ -1,0 +1,123 @@
+[
+  {
+    "instruction": "What are foundation models, and how have they changed AI engineering?",
+    "response": "Foundation models are large neural networks trained on massive and diverse datasets using self-supervised learning. They serve as general-purpose models that can be adapted to many downstream tasks such as text generation, question answering, summarization, translation, and coding. Foundation models have transformed AI engineering by shifting the focus from training task-specific models to adapting pretrained models through prompting, fine-tuning, retrieval augmentation, and agent-based workflows."
+  },
+  {
+    "instruction": "What is a Large Language Model (LLM), and how does it work?",
+    "response": "A Large Language Model (LLM) is a Transformer-based neural network trained to predict the next token in a sequence. During training, it learns statistical relationships between tokens from massive text corpora. During inference, it generates text autoregressively by repeatedly predicting the most probable next token based on the previous context."
+  },
+  {
+    "instruction": "What happens inside ChatGPT after you press Enter?",
+    "response": "After a user submits a prompt, the text is tokenized into numerical token IDs. These tokens are converted into embeddings and passed through multiple Transformer layers where self-attention computes contextual representations. The model predicts probability distributions over the vocabulary, selects the next token using decoding strategies such as greedy decoding, Top-k, or Top-p sampling, appends the generated token to the context, and repeats the process until the response is complete."
+  },
+  {
+    "instruction": "What is the Transformer architecture and how does it work?",
+    "response": "The Transformer is a deep learning architecture based on self-attention mechanisms instead of recurrence. It processes all input tokens simultaneously, captures long-range dependencies efficiently, and enables parallel computation. Modern LLMs such as GPT are built using decoder-only Transformer architectures."
+  },
+  {
+    "instruction": "What are the key components of the Transformer architecture?",
+    "response": "The main components include token embeddings, positional embeddings, multi-head self-attention, feed-forward neural networks, residual connections, layer normalization, and an output projection layer for predicting the next token."
+  },
+  {
+    "instruction": "What is tokenization in Large Language Models?",
+    "response": "Tokenization is the process of converting raw text into smaller units called tokens before feeding them into the model. Tokens may represent words, subwords, or characters depending on the tokenizer. Every token is mapped to a numerical ID that the model can process."
+  },
+  {
+    "instruction": "Explain Byte Pair Encoding (BPE).",
+    "response": "Byte Pair Encoding (BPE) is a subword tokenization algorithm that repeatedly merges the most frequent adjacent token pairs to build a vocabulary. It reduces vocabulary size while effectively handling rare and unseen words."
+  },
+  {
+    "instruction": "Explain WordPiece and SentencePiece tokenization.",
+    "response": "WordPiece selects subword units based on maximizing language modeling likelihood and is widely used in models such as BERT. SentencePiece treats text as a sequence of Unicode characters without requiring whitespace tokenization, making it effective for multilingual applications."
+  },
+  {
+    "instruction": "What is positional encoding, and why is it required?",
+    "response": "Transformers process tokens in parallel and therefore have no inherent understanding of token order. Positional encoding injects sequence order information into token embeddings so that the model can distinguish different token positions."
+  },
+  {
+    "instruction": "What are embeddings in Large Language Models?",
+    "response": "Embeddings are dense numerical vector representations of tokens that capture semantic and syntactic information. Similar words tend to have similar embedding vectors, enabling the model to learn meaningful relationships between concepts."
+  },
+  {
+    "instruction": "Explain Query (Q), Key (K), and Value (V) vectors in attention.",
+    "response": "Each input token is projected into three learned vectors: Query, Key, and Value. The Query represents what information the token is searching for, the Key represents the information available, and the Value contains the information passed to the output after attention weights are computed."
+  },
+  {
+    "instruction": "What is self-attention, and how does it work?",
+    "response": "Self-attention allows every token to attend to every other token in the sequence. Attention scores are computed by comparing Query vectors with Key vectors, normalized using softmax, and applied to Value vectors to produce context-aware token representations."
+  },
+  {
+    "instruction": "What is Cross Attention in Transformers?",
+    "response": "Cross Attention allows one sequence to attend to another sequence. It is primarily used in encoder-decoder Transformers, where the decoder attends to the encoder's output while generating text."
+  },
+  {
+    "instruction": "Why is the attention score divided by the square root of the key dimension?",
+    "response": "Dividing the attention score by the square root of the key dimension prevents extremely large dot-product values before applying softmax. This stabilizes gradients and improves optimization during training."
+  },
+  {
+    "instruction": "What is causal masking?",
+    "response": "Causal masking prevents a token from attending to future tokens during training and inference. It ensures that autoregressive language models such as GPT generate text using only previously generated context."
+  },
+  
+{
+  "instruction": "What are Multi-Head Attention mechanisms, and why are multiple attention heads used?",
+  "response": "Multi-Head Attention performs several independent attention operations in parallel, each learning different contextual relationships within the input sequence. The outputs of all attention heads are concatenated and projected into a single representation. Using multiple attention heads allows the model to capture different semantic, syntactic, and positional relationships simultaneously, improving the expressiveness of the Transformer."
+},
+{
+  "instruction": "What are Feed-Forward Networks (FFNs) in Large Language Models?",
+  "response": "Feed-Forward Networks are fully connected neural networks applied independently to every token after the attention layer. They introduce non-linearity and increase the model's representation capacity by transforming token embeddings into richer feature representations before passing them to the next Transformer layer."
+},
+{
+  "instruction": "What is the context window in Large Language Models, and why is it important?",
+  "response": "The context window is the maximum number of input and generated tokens that a language model can consider at one time. A larger context window allows the model to reason over longer documents, maintain longer conversations, and improve retrieval-based applications."
+},
+{
+  "instruction": "Why is the context window limited in Large Language Models?",
+  "response": "Traditional self-attention computes relationships between every pair of tokens, resulting in quadratic time and memory complexity. As sequence length increases, computation and memory requirements grow rapidly, limiting the practical context window size."
+},
+{
+  "instruction": "What is temperature in Large Language Models, and how does it affect text generation?",
+  "response": "Temperature controls the randomness of token selection during text generation. Lower temperatures produce more deterministic and focused outputs, while higher temperatures increase randomness and creativity by flattening the probability distribution over possible next tokens."
+},
+{
+  "instruction": "Why is the first generated token slower than the remaining tokens?",
+  "response": "The first token requires processing the entire input prompt through every Transformer layer to build the initial attention states. Once the KV cache is created, subsequent tokens reuse previously computed representations, making later token generation significantly faster."
+},
+{
+  "instruction": "Explain Top-k sampling and Top-p (Nucleus) sampling.",
+  "response": "Top-k sampling selects the next token only from the k most probable candidates, while Top-p sampling dynamically selects the smallest set of tokens whose cumulative probability exceeds a threshold p. Top-p adapts to different probability distributions and generally produces more natural text than a fixed Top-k strategy."
+},
+{
+  "instruction": "What are logits, and how are they used in text generation?",
+  "response": "Logits are the raw output scores produced by the model before applying the softmax function. During inference, logits are converted into probability distributions, which are then used by decoding algorithms such as greedy decoding, beam search, Top-k sampling, or Top-p sampling to select the next token."
+},
+{
+  "instruction": "What are residual (skip) connections in Transformers?",
+  "response": "Residual connections add the input of a Transformer sub-layer directly to its output before normalization. They improve gradient flow, reduce the vanishing gradient problem, stabilize optimization, and enable very deep Transformer architectures to train effectively."
+},
+{
+  "instruction": "What is the difference between open-source and closed-source Large Language Models?",
+  "response": "Open-source LLMs provide publicly accessible model weights that developers can inspect, modify, fine-tune, and deploy locally. Closed-source LLMs are accessible only through APIs or proprietary platforms, offering managed infrastructure and strong performance but limited transparency and customization."
+},
+{
+  "instruction": "What is the difference between encoder-only, decoder-only, and encoder-decoder Transformer architectures?",
+  "response": "Encoder-only models such as BERT are designed for language understanding tasks using bidirectional context. Decoder-only models such as GPT generate text autoregressively using masked self-attention. Encoder-decoder models such as T5 combine both components for sequence-to-sequence tasks including translation and summarization."
+},
+{
+  "instruction": "What is KV Cache, and how does it improve inference speed?",
+  "response": "KV Cache stores previously computed Key and Value tensors for earlier tokens during autoregressive generation. Instead of recomputing attention for the entire sequence at every decoding step, the model reuses cached values, significantly reducing latency during inference."
+},
+{
+  "instruction": "What is model distillation, and how is it used with Large Language Models?",
+  "response": "Model distillation transfers knowledge from a large teacher model to a smaller student model by training the student to mimic the teacher's predictions. This produces smaller models with lower computational requirements while preserving much of the original model's performance."
+},
+{
+  "instruction": "What is Mixture of Experts (MoE), and how does it work?",
+  "response": "Mixture of Experts is an architecture that contains multiple specialized feed-forward networks called experts. A gating network dynamically selects a small subset of experts for each input token, allowing the model to achieve high capacity while keeping computation relatively efficient."
+},
+{
+  "instruction": "What is the difference between dense and sparse models?",
+  "response": "Dense models activate every parameter during each forward pass, whereas sparse models such as Mixture of Experts activate only a subset of parameters for each input. Sparse models provide higher model capacity with lower computational cost compared to equally sized dense models."
+}
+]

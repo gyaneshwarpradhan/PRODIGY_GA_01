@@ -1,0 +1,156 @@
+[ {
+    "instruction": "What is the Transformer architecture?",
+    "response": "The Transformer is a deep learning architecture that replaces recurrence and convolution with self-attention mechanisms. It processes all input tokens simultaneously, enabling parallel computation, efficient learning of long-range dependencies, and faster training than RNNs."
+  },
+  {
+    "instruction": "How is a Transformer different from an RNN?",
+    "response": "Unlike RNNs, which process tokens sequentially using recurrence, Transformers process all tokens in parallel using self-attention. This makes Transformers faster to train and better at capturing long-range dependencies."
+  },
+  {
+    "instruction": "Why is the Transformer more efficient than CNNs and RNNs?",
+    "response": "Transformers remove sequential computation by using self-attention, allowing parallel processing of all tokens. This significantly improves training speed and scalability for large datasets."
+  },
+  {
+    "instruction": "Why does the Transformer use positional encoding?",
+    "response": "Since Transformers process all tokens in parallel and have no inherent notion of sequence order, positional encoding injects information about the position of each token so the model can understand word order."
+  },
+  {
+    "instruction": "What is self-attention?",
+    "response": "Self-attention enables every token in a sequence to attend to every other token, allowing the model to capture contextual relationships regardless of the distance between tokens."
+  },
+  {
+    "instruction": "Why does the Transformer use Multi-Head Attention?",
+    "response": "Multi-Head Attention allows the model to learn different contextual relationships simultaneously by running multiple attention mechanisms in parallel and combining their outputs."
+  },
+  {
+    "instruction": "What are Query, Key, and Value vectors?",
+    "response": "Query vectors represent what information a token is searching for, Key vectors represent the information available in each token, and Value vectors contain the information that is passed to the output after attention scores are computed."
+  },
+  {
+    "instruction": "Why are separate weight matrices used for Query, Key, and Value?",
+    "response": "Separate learned weight matrices allow Queries, Keys, and Values to capture different semantic representations of the same input token, making the attention mechanism more expressive."
+  },
+  {
+    "instruction": "Why are attention scores divided by the square root of dk?",
+    "response": "Scaling attention scores by the square root of the key dimension prevents extremely large values before softmax, improving numerical stability and gradient flow during training."
+  },
+  {
+    "instruction": "What is Scaled Dot-Product Attention?",
+    "response": "Scaled Dot-Product Attention computes attention scores using the dot product of Queries and Keys, scales them by the square root of the key dimension, applies softmax, and uses the resulting weights to combine Value vectors."
+  },
+  {
+    "instruction": "What is the purpose of residual connections in a Transformer?",
+    "response": "Residual connections allow gradients to flow through deep networks more effectively, reduce the vanishing gradient problem, preserve information from earlier layers, and improve training stability."
+  },
+  {
+    "instruction": "What is Layer Normalization?",
+    "response": "Layer Normalization normalizes activations across features within each sample, stabilizing training and making Transformers independent of batch size."
+  },
+  {
+    "instruction": "Why do Transformers use LayerNorm instead of BatchNorm?",
+    "response": "LayerNorm is independent of batch size and works effectively with variable-length sequences, making it more suitable than BatchNorm for natural language processing tasks."
+  },
+  {
+    "instruction": "What are the main components of a Transformer Encoder?",
+    "response": "A Transformer Encoder consists of Multi-Head Self-Attention, a Feed-Forward Neural Network, Residual Connections, Layer Normalization, and Positional Encoding."
+  },
+  {
+    "instruction": "What are the main components of a Transformer Decoder?",
+    "response": "A Transformer Decoder contains Masked Multi-Head Self-Attention, Cross-Attention with the Encoder output, a Feed-Forward Network, Residual Connections, and Layer Normalization."
+  },
+  {
+    "instruction": "Why does GPT use only the Transformer Decoder?",
+    "response": "GPT performs autoregressive next-token prediction, so it only requires the decoder architecture with masked self-attention."
+  },
+  {
+    "instruction": "Why does BERT use only the Transformer Encoder?",
+    "response": "BERT focuses on bidirectional language understanding rather than text generation, making the encoder architecture the appropriate choice."
+  },
+  {
+    "instruction": "What is masked self-attention?",
+    "response": "Masked self-attention prevents tokens from attending to future positions, ensuring that predictions depend only on previously generated tokens during autoregressive generation."
+  },
+  {
+    "instruction": "What is causal language modeling?",
+    "response": "Causal language modeling trains a model to predict the next token using only previous tokens, which is the objective used by GPT models."
+  },
+  {
+    "instruction": "What is the size of the attention matrix?",
+    "response": "For an input sequence containing n tokens, the attention matrix has dimensions n × n, where each element represents the attention score between two tokens."
+  },
+  {
+    "instruction": "Does every token have its own Query, Key, and Value vectors?",
+    "response": "Yes. Every input token is projected through learned weight matrices to generate its own Query, Key, and Value vectors before the attention computation."
+  },
+  {
+    "instruction": "What is the difference between Pre-Norm and Post-Norm Transformers?",
+    "response": "Pre-Norm applies Layer Normalization before each sub-layer, improving gradient flow in deep models, while Post-Norm applies Layer Normalization after the residual connection."
+  },
+  {
+    "instruction": "How do Transformers achieve parallelization?",
+    "response": "Transformers achieve parallelization by processing all tokens simultaneously through self-attention, applying feed-forward networks independently to each token, and executing multiple attention heads in parallel."
+  },
+  {
+    "instruction": "Why does the Transformer use Multi-Head Attention?",
+    "response": "The Transformer uses Multi-Head Attention to capture different types of relationships and patterns in the input data. By applying multiple attention mechanisms in parallel, each with its own learned weight matrices, the model can focus on various parts of the input sequence simultaneously. This allows it to gather diverse contextual information and enhances its ability to represent complex dependencies in the data. Multi-Head Attention improves the model's expressiveness by combining multiple perspectives before passing the output to subsequent layers. The Query weight matrix projects the input into the query vector space, the Key weight matrix projects the input into the key vector space, and the Value weight matrix projects the input into the value vector space."
+  },
+  {
+    "instruction": "Why does the Transformer scale the attention score before applying softmax?",
+    "response": "The Transformer scales the attention scores before applying softmax to stabilize gradients and improve training performance. Specifically, the attention scores are divided by the square root of the key dimension (sqrt(dk)). Without scaling, the dot products between Query and Key vectors can become very large, causing the softmax function to produce extremely small gradients, which slows convergence and makes optimization difficult. The scaled dot-product attention formula is: Attention(Q, K, V) = softmax(QK^T / sqrt(dk))V."
+  },
+  {
+    "instruction": "Why does the Transformer use different weight matrices for Query, Key, and Value?",
+    "response": "The Transformer uses separate weight matrices to generate Query (Q), Key (K), and Value (V) vectors because each serves a different purpose within the attention mechanism. The Query determines what information the model is searching for, the Key represents the content available in each token, and the Value contains the information that will be aggregated and passed forward. Using different learned projections allows the model to capture different semantic representations and relationships, improving its ability to model complex dependencies."
+  }
+  ,
+  {
+  "instruction": "What are residual connections in the Transformer, and why are they important?",
+  "response": "Residual connections add the input of a sub-layer directly to its output before passing it to the next stage. Their primary purpose is to improve gradient flow during backpropagation, reducing the vanishing gradient problem and enabling the training of deeper Transformer models. Residual connections also preserve information from earlier layers, allowing the model to combine both low-level and high-level representations, which improves convergence, stability, and overall model performance."
+},
+{
+  "instruction": "What is the difference between Layer Normalization (LayerNorm) and Batch Normalization (BatchNorm)?",
+  "response": "Layer Normalization (LayerNorm) normalizes activations across the features of a single input sample, making it independent of the batch size. It is widely used in Transformer models because it works well with variable-length sequences and maintains sequence information. Batch Normalization (BatchNorm) normalizes activations across a batch of samples using batch statistics. It is highly effective in CNNs and feed-forward networks but is less suitable for sequence models where batch sizes and sequence lengths may vary."
+},
+{
+  "instruction": "Why do Transformer blocks use LayerNorm instead of BatchNorm?",
+  "response": "Transformers use Layer Normalization because it operates independently of batch statistics and normalizes features within each individual sample. This makes it robust for variable-length sequences and small batch sizes, both of which are common in natural language processing. Batch Normalization depends on batch-level statistics, making it less stable and less suitable for sequence modeling tasks."
+},
+{
+  "instruction": "How do Transformers achieve parallelization?",
+  "response": "Transformers achieve parallelization through several mechanisms. First, the self-attention mechanism computes attention scores for all tokens simultaneously instead of sequentially as in RNNs. Second, positional encoding injects sequence-order information without requiring sequential computation. Third, multiple attention heads in Multi-Head Attention operate independently in parallel. Finally, feed-forward neural networks are applied independently to every token, enabling efficient GPU utilization and significantly faster training."
+},
+{
+  "instruction": "What are the differences between the Transformer Encoder and Decoder?",
+  "response": "The Transformer Encoder converts an input sequence into contextual representations using Multi-Head Self-Attention, Feed-Forward Networks, Residual Connections, and Layer Normalization. The Decoder generates the output sequence autoregressively. In addition to Masked Multi-Head Self-Attention and Feed-Forward Networks, the Decoder contains Cross-Attention, which attends to the Encoder's output. The Encoder can attend to all input tokens, whereas the Decoder uses masked self-attention to prevent access to future tokens during generation."
+}
+,
+{
+  "instruction": "What is the size of the attention matrix in a Transformer?",
+  "response": "For an input sequence containing n tokens, the attention matrix has dimensions n × n. Each element represents the attention score between a pair of tokens in the sequence. These scores are computed using the dot product of the Query and Key vectors, scaled by the square root of the key dimension, and normalized using the softmax function to produce attention weights."
+},
+{
+  "instruction": "What are Query (Q), Key (K), and Value (V) vectors in a Transformer?",
+  "response": "Each input token is transformed into three vectors: Query (Q), Key (K), and Value (V). The Query vector represents what information the token is looking for, the Key vector represents the information available in each token, and the Value vector contains the information that will be aggregated after the attention weights are computed. These vectors are generated using three independent learned linear projection matrices."
+},
+{
+  "instruction": "Does every token have its own Query, Key, and Value vectors?",
+  "response": "Yes. Every token in the input sequence is projected independently through the learned Query, Key, and Value weight matrices to generate its own Q, K, and V vectors. During the attention computation, the Query vector of one token is compared with the Key vectors of all tokens to determine attention weights, which are then applied to the corresponding Value vectors."
+},
+{
+  "instruction": "What are the dimensions of Query, Key, and Value vectors?",
+  "response": "Assume the input embedding has dimensions (n_tokens, d_model). The learned projection matrices WQ, WK, and WV have dimensions d_model × d_k, d_model × d_k, and d_model × d_v respectively. After projection, the Query and Key matrices have dimensions (n_tokens, d_k), while the Value matrix has dimensions (n_tokens, d_v). In Multi-Head Attention, the embedding dimension is divided across multiple heads so that each head operates on smaller Query, Key, and Value vectors."
+},
+{
+  "instruction": "What is the difference between Pre-Norm and Post-Norm Transformers?",
+  "response": "In the Post-Norm architecture, the input first passes through a sub-layer such as Multi-Head Attention or a Feed-Forward Network, then a residual connection is added, and finally Layer Normalization is applied. In the Pre-Norm architecture, Layer Normalization is applied before the sub-layer, followed by the residual connection. Modern large language models typically prefer Pre-Norm because it improves gradient flow and enables more stable training for very deep Transformer networks."
+},
+{
+  "instruction": "Why do Transformers use LayerNorm instead of BatchNorm?",
+  "response": "Layer Normalization operates independently for each token by normalizing across its feature dimensions, making it independent of batch size and sequence length. This property makes LayerNorm well suited for NLP tasks involving variable-length sequences. Batch Normalization depends on statistics computed across an entire mini-batch, making it less stable for sequence models and autoregressive language generation."
+},
+{
+  "instruction": "How does Transformer training differ from inference?",
+  "response": "During training, Transformers process all input tokens simultaneously, allowing parallel computation of attention and efficient optimization. During inference, autoregressive models such as GPT generate one token at a time, where each newly generated token becomes part of the input for predicting the next token. This sequential generation makes inference slower than training."
+}
+
+]
